@@ -33,20 +33,20 @@ function App() {
     };
 
     // State for controlling the visibility of the "Buy me a coffee" button
-    const [showBuyMeACoffee, setShowBuyMeACoffee] = useState(false);
-    const [triggerBuyMeACoffee, setTriggerBuyMeACoffee] = useState(0);
+    // const [showBuyMeACoffee, setShowBuyMeACoffee] = useState(false);
+    // const [triggerBuyMeACoffee, setTriggerBuyMeACoffee] = useState(0);
 
     // UseEffect to determine if the "Buy me a coffee" button should be shown
-    useEffect(() => {
-        const random = Math.random();
-        if (random <= 0.01) {
-            setShowBuyMeACoffee(true);
-            // Set a timeout to hide the button after 20 seconds
-            const _timer = setTimeout(() => {
-                setShowBuyMeACoffee(false);
-            }, 20000);
-        }
-    }, [triggerBuyMeACoffee]); // Empty dependency array ensures this runs only once on mount
+    // useEffect(() => {
+    //     const random = Math.random();
+    //     if (random <= 0.01) {
+    //         setShowBuyMeACoffee(true);
+    //         // Set a timeout to hide the button after 20 seconds
+    //         const _timer = setTimeout(() => {
+    //             setShowBuyMeACoffee(false);
+    //         }, 20000);
+    //     }
+    // }, [triggerBuyMeACoffee]); // Empty dependency array ensures this runs only once on mount
 
     // Use useEffect to check DOM once and set state
     useEffect(() => {
@@ -71,7 +71,7 @@ function App() {
         setTags(stringToTags(tagElement ? tagElement.innerText : ''));
         setDifficulty(difficultyElement ? difficultyElement.innerText.trim() : null);
 
-        setTriggerBuyMeACoffee(prev => prev + 1);
+        // setTriggerBuyMeACoffee(prev => prev + 1);
 
         const observer = new MutationObserver((mutationsList) => {
             const relevantIds = [...basicIds, ...clozeIds];
@@ -118,7 +118,7 @@ function App() {
             });
             setTags(stringToTags(updatedTagsElement ? updatedTagsElement.innerText : ''));
             setDifficulty(updatedDifficultyElement ? updatedDifficultyElement.innerText.trim() : null);
-            setTriggerBuyMeACoffee(prev => prev + 1);
+            // setTriggerBuyMeACoffee(prev => prev + 1);
         });
 
         // Observe the entire document for changes
@@ -179,26 +179,6 @@ function App() {
             {showBasicCard && <BasicCard contentVersion={basicNodes.contentVersion} colors={colors} frontNode={basicNodes.front} backNode={basicNodes.back} extraNode={basicNodes.extra} />}
             {showClozeCard && <ClozeCard contentVersion={clozeNodes.contentVersion} colors={colors} frontNode={clozeNodes.front} backNode={clozeNodes.back} extraNode={clozeNodes.extra} />}
 
-            {showBuyMeACoffee && (
-                <Button
-                    id="buy-me-a-coffee"
-                    component="a"
-                    href="https://coff.ee/alexthilleq"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    leftSection={<IconCoffee size={24} />}
-                    variant="filled"
-                    color="yellow"
-                    size="sm"
-                    radius="md"
-                    style={{
-                        marginTop: '16px',
-                        color: colorScheme === 'dark' ? 'var(--mantine-color-dark-9)' : 'var(--mantine-color-dark-9)'
-                    }}
-                >
-                    Like this Addon? Consider Buying Me a Coffee!
-                </Button>
-            )}
         </Card>
     );
 }
